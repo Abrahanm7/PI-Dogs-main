@@ -1,12 +1,13 @@
+require ('dotenv').config();
 const { Router } = require('express');
 const axios = require('axios')
-const { Dog, Temperamento, Dog_Temp } = require('../db.js');
+const { Dog, Temperament, Dog_Temp } = require('../db.js');
 
 
 const router = Router();
 
 const getApiInfo = async () => {
-    const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds?api_key={API_KEY}")
+    const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds")
     const apiInfo = await apiUrl.data.map(el => {
         const heightsp = el.height.metric.split("-");
         const weightsp = el.weight.metric.split("-");
@@ -21,6 +22,7 @@ const getApiInfo = async () => {
             weightMax: weightsp[1],
             temperament: el.temperament,
             image: image,
+            createdInDb: false,
             life_span: el.life_span
             }
     });
@@ -30,7 +32,7 @@ const getApiInfo = async () => {
 const getDbInfo = async () => {
     return await Dog.findAll({
         include:{
-            model: Temperamento,
+            model: Temperament,
             attributes: ["name"],
             through: {
                 attributes:[],
@@ -39,6 +41,7 @@ const getDbInfo = async () => {
     })
 }
 
+
 const getAllDogs = async () => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
@@ -46,6 +49,20 @@ const getAllDogs = async () => {
     return infoTotal; 
 }
 
+const getAllTemp = async () => {
+    const temperamentsApi = await axios.get("https://api.thedogapi.com/v1/breeds")
+    const temperaments = temperamentsApi.data.map((el) => el.temperament)
+    
+    const temp = temperaments.toString().split(",")
+    temp.forEach(el => {el && 
+        Temperament.findOrCreate({
+            where: {name: el.trim()}
+        })
+    })
+    const allTemperaments = await Temperament.findAll();
+    return allTemperaments;
+}
+    
 router.get('/dogs', async (req , res) => {
     
     //llamado asincrono a la api 
@@ -85,16 +102,8 @@ router.get('/dogs/:id', async (req , res) => {
 });
 
 router.get('/temperaments', async (req , res) => {
-    const temperamentsApi = await axios.get("https://api.thedogapi.com/v1/breeds?api_key={API_KEY}")
-    const temperaments = temperamentsApi.data.map((el) => el.temperament)
-    const temp = temperaments.toString().split(",")
-    temp.forEach(el => {el && 
-        Temperamento.findOrCreate({
-            where: {name: el.trim()}
-        })
-    })
-    const allTemperaments = await Temperamento.findAll();
-    res.send(allTemperaments);
+    let allTemperaments = await getAllTemp();
+    res.status(200).send(allTemperaments);
 });
 
 router.post('/dogs', async (req , res) => {
@@ -115,24 +124,25 @@ router.post('/dogs', async (req , res) => {
         createdInDb,
         life_span
     } = req.body
-
-    let dogCreated = await Dog.create({
-        name,
-        heightMin,
-        heightMax,
-        weightMin,
-        weightMax,
-        image,
-        createdInDb,
-        life_span
-    })
+        
+        let dogCreated = await Dog.create({
+            name,
+            heightMin,
+            heightMax,
+            weightMin,
+            weightMax,
+            image,
+            createdInDb,
+            life_span
+        })
+        
+        let temperamentDb = await Temperament.findAll({
+            where: { name: temperament }
+            })
+        dogCreated.addTemperament(temperamentDb);        
+        res.status(200).send("creado")
+        
+    });
     
-    let temperamentDb = await Temperamento.findAll({
-        where: { name: temperament }
-    })
-    const creado = await dogCreated.addTemperamento(temperamentDb);
-    res.send(creado)
-});
-
 
 module.exports = router;
