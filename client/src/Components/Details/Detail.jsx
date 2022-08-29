@@ -7,7 +7,7 @@ import d from "./Detail.module.css";
 
 export default function Detail(props) {
   const dispatch = useDispatch();
-
+    console.log(props)
   const id = props.location.pathname.split("/")[2];
 
   console.log(id);

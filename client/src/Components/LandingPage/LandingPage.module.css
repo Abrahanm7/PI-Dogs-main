@@ -1,0 +1,25 @@
+.backg{
+    display: flex;
+    flex-direction: column;
+    background-image: url("../../Imagenes/unknown.png");
+    background-size: cover;
+    min-height: 100vh;
+    margin:0px;
+}
+.title{
+    font-size: 175px; 
+    color: #fbffa5;
+}
+.butt{
+    height: 100px;
+    width: 250px;
+    font-size: 30px;
+    color: #fbffa5;
+    border-radius: 25px;
+    background-color: black;
+    border: 0px;
+    transition: 00.3s;
+}
+.butt:hover{
+    transform: scale(1.1);
+}

@@ -8,4 +8,14 @@
 .lista {
     list-style: none;
     margin: 10px;
+  
+}
+.num{
+    background-color:#ff862f;
+    border: #ff862f;
+    border-radius: 4px;
+    transition: 0.1s;
+}
+.num:hover{
+    transform: scale(1.1);
 }

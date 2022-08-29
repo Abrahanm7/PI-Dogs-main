@@ -8,6 +8,16 @@
     background-size: cover;
 }
 
+.title{
+   font-size: 75px; 
+}
+
+.titulo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .filtros {
     margin-top: 20px;
     display: flex;
@@ -18,6 +28,15 @@
 
 .filt {
     margin: 10px;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #ff862f;
+    border: #ff862f;
+    transition: 0.1s;
+}
+.filt:hover{
+    transform: scale(1.03);
 }
 
 .cartas {
@@ -43,4 +62,15 @@
     justify-content: center;
     align-items: center;
 
+}
+.botones{
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #ff862f;
+    border: #ff862f;
+    transition: 0.1s;
+}
+.botones:hover{
+    transform: scale(1.03);
 }

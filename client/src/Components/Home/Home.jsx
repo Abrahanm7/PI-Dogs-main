@@ -13,6 +13,7 @@ import Card from "../Cards/Card";
 import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
 import h from "./Home.module.css";
+import logo from "../../Imagenes/logo.png"
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -67,7 +68,10 @@ export default function Home() {
 
   return (
     <div className={h.contenedor}>
-      <h1>Huellitas</h1>
+      <div className={h.titulo}>
+      <img src={logo} alt="" />
+      <h1 className={h.title}>huellitas</h1>
+      </div>
       <div className={h.search}>
         <SearchBar />
       </div>
@@ -130,7 +134,7 @@ export default function Home() {
         perrosPorPagina={perrosPorPagina}
         allDogs={allDogs.length}
         paginado={paginado}
-        className={h.botones}
+        
       />
       <div className={h.cartas}>
         {perrosActuales &&

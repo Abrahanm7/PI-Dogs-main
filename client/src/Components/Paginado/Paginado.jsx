@@ -14,7 +14,7 @@ export default function Paginado({ perrosPorPagina, allDogs, paginado }) {
         {numeroPagina &&
           numeroPagina.map((numero) => (
             <li className={p.lista} key={numero}>
-              <button className={p.lista} onClick={() => paginado(numero)}>
+              <button className={p.num} onClick={() => paginado(numero)}>
                 {numero}
               </button>
             </li>
