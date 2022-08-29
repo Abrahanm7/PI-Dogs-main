@@ -1,0 +1,11 @@
+.paginas {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.lista {
+    list-style: none;
+    margin: 10px;
+}

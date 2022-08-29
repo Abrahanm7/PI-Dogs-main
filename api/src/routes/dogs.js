@@ -9,10 +9,11 @@ const router = Router();
 const getApiInfo = async () => {
     const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds")
     const apiInfo = await apiUrl.data.map(el => {
-        const heightsp = el.height.metric.split("-");
-        const weightsp = el.weight.metric.split("-");
+        const heightsp = el.height.metric.split(" - ");
+        const weightsp = el.weight.metric.split(" - ");
         const image = el.image.url;
         
+
         return {
             id: el.id,
             name: el.name,
@@ -90,14 +91,19 @@ router.get('/dogs/:id', async (req , res) => {
     //verificar el tipo de ID (de ser necesario)
      //llamado asincrono para buscarlo (base de datos o api)
      //respondemos con el resultado (se puede validar)
-    const id = req.params.id
-    const dogsTotal = await getAllDogs();
-    if (id){
-        const dogId = await dogsTotal.filter(el => el.id == id)
-        dogId.length ?
-        res.status(200).json(dogId):
-        res.status(404).send("No se encontro el perro")
+    const  id  = req.params.id
+    try{
+        const dogsTotal = await getAllDogs();
+        if (id){
+            const dogId = await dogsTotal.filter(el => el.id == id)
+            dogId.length ?
+            res.status(200).json(dogId):
+            res.status(404).send("No se encontro el perro")
+        }
+    } catch(error){
+        console.log(error)
     }
+    
 
 });
 

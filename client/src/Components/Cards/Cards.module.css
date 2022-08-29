@@ -1,0 +1,52 @@
+    .contenedor {
+        display: flex;
+        flex-direction: row;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        margin: 20px;
+        font-family: 'HK Grotesk';
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 20px;
+        width: 350px;
+        box-shadow: 6px 6px 5px 0px rgba(102, 81, 54, 0.5);
+        text-decoration: none;
+    }
+
+    .cardbody {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+        width: 3500px;
+        box-shadow: 6px 6px 5px 0px rgba(102, 81, 54, 0.5);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .image {
+        width: 350px;
+        height: 300px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .cardtitle {
+        display: flex;
+
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .minmax {
+        margin-top: 10px;
+        display: flex;
+        font-size: large;
+        font-weight: bold;
+        flex-direction: row;
+    }

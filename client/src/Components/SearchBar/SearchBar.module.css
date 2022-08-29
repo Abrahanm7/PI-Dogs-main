@@ -1,0 +1,13 @@
+.contenedor {
+    background-color: #ff862f;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+butt {
+    margin: 10px;
+}
