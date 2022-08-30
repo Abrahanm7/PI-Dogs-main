@@ -63,7 +63,10 @@ export function searchByName(name) {
         type: "SEARCH_BY_NAME",
         payload: json.data,
       });
-    } catch (error) {}
+    } catch (error) {
+      alert("No se encontro el perro")
+      
+    }
   };
 }
 

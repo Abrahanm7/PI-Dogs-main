@@ -16,6 +16,7 @@ export default function SearchBar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(searchByName(search));
+    setSearch("") 
   };
 
   return (
@@ -23,6 +24,7 @@ export default function SearchBar() {
       <input
         className={s.inp}
         type="text"
+        value={search}
         placeholder="Buscar por nombre..."
         onChange={(e) => handleImputChange(e)}
       />

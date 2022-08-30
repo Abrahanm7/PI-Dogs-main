@@ -13,7 +13,7 @@ import Card from "../Cards/Card";
 import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
 import h from "./Home.module.css";
-import logo from "../../Imagenes/logo.png"
+import logo from "../../Imagenes/logo.png";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -28,6 +28,8 @@ export default function Home() {
   const paginado = (numeroPagina) => {
     setPaginaActual(numeroPagina);
   };
+
+  console.log(perrosActuales);
 
   function handleClick(e) {
     e.preventDefault();
@@ -59,103 +61,113 @@ export default function Home() {
   useEffect(() => {
     if (!allDogs[0]) {
       dispatch(getDogs());
+      dispatch(getTemperaments());
     }
   }, [dispatch, allDogs]);
 
-  useEffect(() => {
-    dispatch(getTemperaments());
-  }, [dispatch]);
-
   return (
     <div className={h.contenedor}>
-      <div className={h.titulo}>
-      <img src={logo} alt="" />
-      <h1 className={h.title}>huellitas</h1>
-      </div>
-      <div className={h.search}>
-        <SearchBar />
-      </div>
-      <div className={h.filtros}>
-        <div className={h.filt}>
-          <select
-            className={h.botones}
-            onChange={(e) => handleOrdenAlfabetico(e)}
-          >
-            <option value="asc">Ascendente a descendente</option>
-            <option value="desc">Descendente a ascendente</option>
-          </select>
+      {allDogs.length === 0 ? (
+        <div>
+          <img
+            src="https://acegif.com/wp-content/uploads/gif/dog-chasing-tail-41.gif"
+            alt="img not found"
+          />
         </div>
-        <div className={h.filt}>
-          <select
-            className={h.botones}
-            onChange={(e) => handleFilterTemperament(e)}
-          >
-            <option key={0} value="all">
-              Temperamentos
-            </option>
-            {temperaments?.map((el) => {
-              return (
-                <option key={el.id} value={el.name}>
-                  {el.name}
+      ) : (
+        <div>
+          <div className={h.titulo}>
+            <img src={logo} alt="" />
+            <h1 className={h.title}>huellitas</h1>
+          </div>
+          <div className={h.search}>
+            <SearchBar setPaginaActual={setPaginaActual} />
+          </div>
+          <div className={h.filtros}>
+            <div className={h.filt}>
+              <select
+                className={h.botones}
+                onChange={(e) => handleOrdenAlfabetico(e)}
+              >
+                <option value="asc">Ascendente a descendente</option>
+                <option value="desc">Descendente a ascendente</option>
+              </select>
+            </div>
+            <div className={h.filt}>
+              <select
+                className={h.botones}
+                onChange={(e) => handleFilterTemperament(e)}
+              >
+                <option key={0} value="all">
+                  Temperamentos
                 </option>
-              );
-            })}
-          </select>
+                {temperaments?.map((el) => {
+                  return (
+                    <option key={el.id} value={el.name}>
+                      {el.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className={h.filt}>
+              <select
+                className={h.botones}
+                onChange={(e) => handleOrdenPeso(e)}
+              >
+                <option value="menorPeso">Menor peso a mayor peso</option>
+                <option value="mayorpeso">Mayor peso a menor peso</option>
+              </select>
+            </div>
+            <div className={h.filt}>
+              <select
+                className={h.botones}
+                onChange={(e) => handleFilterCreated(e)}
+              >
+                <option value="Todos">Todos</option>
+                <option value="api">Existentes</option>
+                <option value="dataBase">Creados</option>
+              </select>
+            </div>
+            <Link to="/dogs">
+              <button className={h.filt}>Crear Perro</button>
+            </Link>
+            <button
+              className={h.filt}
+              onClick={(e) => {
+                handleClick(e);
+              }}
+            >
+              Recargar
+            </button>
+          </div>
+          <Paginado
+            perrosPorPagina={perrosPorPagina}
+            allDogs={allDogs.length}
+            paginado={paginado}
+          />
+          <div className={h.cartas}>
+            {perrosActuales &&
+              perrosActuales.map((el) => {
+                return (
+                  <div className={h.carta}>
+                    <Link className={h.carta} to={"/home/" + el.id}>
+                      <Card
+                        className={h.carta}
+                        key={el.id}
+                        name={el.name}
+                        image={el.image}
+                        temperament={el.temperament}
+                        weightMin={el.weightMin}
+                        weightMax={el.weightMax}
+                      />
+                    </Link>
+                  </div>
+                );
+              })}
+          </div>
         </div>
-        <div className={h.filt}>
-          <select className={h.botones} onChange={(e) => handleOrdenPeso(e)}>
-            <option value="menorPeso">Menor peso a mayor peso</option>
-            <option value="mayorpeso">Mayor peso a menor peso</option>
-          </select>
-        </div>
-        <div className={h.filt}>
-          <select
-            className={h.botones}
-            onChange={(e) => handleFilterCreated(e)}
-          >
-            <option value="Todos">Todos</option>
-            <option value="api">Existentes</option>
-            <option value="dataBase">Creados</option>
-          </select>
-        </div>
-        <Link to="/dogs">
-          <button className={h.filt}>Crear Perro</button>
-        </Link>
-        <button
-          className={h.filt}
-          onClick={(e) => {
-            handleClick(e);
-          }}
-        >
-          Recargar
-        </button>
-      </div>
-      <Paginado
-        perrosPorPagina={perrosPorPagina}
-        allDogs={allDogs.length}
-        paginado={paginado}
-        
-      />
-      <div className={h.cartas}>
-        {perrosActuales &&
-          perrosActuales.map((el) => {
-            return (
-              <div className={h.carta}>
-                <Link className={h.carta} to={"/home/" + el.id}>
-                  <Card
-                    className={h.carta}
-                    key={el.id}
-                    name={el.name}
-                    image={el.image}
-                    temperament={el.temperament}
-                    weightMin={el.weightMin}
-                    weightMax={el.weightMax}
-                  />
-                </Link>
-              </div>
-            );
-          })}
-      </div>
+      )}
     </div>
   );
 }

@@ -71,17 +71,21 @@ router.get('/dogs', async (req , res) => {
     //llamado asincrono a la base de datos 
     //combinar los resultados 
     //enviarlos (validar que existan)
-    
-    const name = req.query.name ;
-    let dogsTotal = await getAllDogs();
-    if (name){
-        let dogname = await dogsTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
-        dogname.length ? 
-        res.status(200).send(dogname) :
-        res.status(400).send("No esta la raza buscada");  
-    } else{
-        res.status(200).send(dogsTotal)
-    }   
+    try {
+        
+        const name = req.query.name ;
+        let dogsTotal = await getAllDogs();
+        if (name){
+            let dogname = await dogsTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
+            dogname.length ? 
+            res.status(200).send(dogname) :
+            res.status(400).send("No se encontro el perro");  
+        } else{
+            res.status(200).send(dogsTotal)
+        }   
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
 
 })
 
