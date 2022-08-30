@@ -64,8 +64,7 @@ export function searchByName(name) {
         payload: json.data,
       });
     } catch (error) {
-      alert("No se encontro el perro")
-      
+      alert("No se encontro el perro");
     }
   };
 }

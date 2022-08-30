@@ -21,7 +21,11 @@
     border: 2px solid black;
     box-shadow: 6px 6px 5px 0px rgba(102, 81, 54, 0.5);
     border-radius: 20px 100px;
-
+    background:radial-gradient(rgba(232, 217, 202, 0.753)0%,rgba(232, 217, 202, 0.836));
+    transition: 0.3s;
+}
+.contenedor:hover{
+    transform: scale(1.05);
 }
 
 .image {
@@ -33,7 +37,7 @@
 }
 
 .filt {
-    margin: 10px;
+    margin: 30px;
     width: 100px;
     height: 30px;
     border-radius: 10px;
