@@ -38,9 +38,9 @@ export default function Detail(props) {
             Altura: {dogId[0].heightMin} - {dogId[0].heightMax} Cm
           </p>
           <p>
-            Temperamento:{" "}
+            Temperamento:
             {dogId[0].createdInDb
-              ? dogId[0].temperament.map((e) => e.name) + ", "
+              ? dogId[0].temperament.map((e) => e.name + " ")
               : dogId[0].temperament}
           </p>
           <p>Esperanza de vida: {dogId[0].life_span}</p>
