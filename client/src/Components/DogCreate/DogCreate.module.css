@@ -1,4 +1,4 @@
-.contenedor{
+.contenedor {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,13 +9,15 @@
     min-width: 100vw;
 }
 
-.error{
-    color:red;
+.error {
+    color: red;
 }
-.inp{
-    background-color:#fbffa5;
+
+.inp {
+    background-color: #fbffa5;
 }
-.contfilt{
+
+.contfilt {
     background-color: #ff862f;
     width: 250px;
     height: 100px;
@@ -28,16 +30,17 @@
 }
 
 
-.form{
-    width:auto;
-    height:max-content;
+.form {
+    width: auto;
+    height: max-content;
     background-color: #fbffa5;
     display: grid;
-    grid-column: 1 ;
+    grid-column: 1;
     grid-row: 1;
-    grid-template-columns: repeat(2,auto);
-    grid-template-rows: repeat(2,auto);
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
 }
+
 .filt {
     margin: 10px;
     width: 100px;
@@ -47,9 +50,11 @@
     border: #ff862f;
     transition: 0.1s;
 }
-.filt:hover{
+
+.filt:hover {
     transform: scale(1.03);
 }
+
 .lista {
     list-style: none;
     margin: 10px;

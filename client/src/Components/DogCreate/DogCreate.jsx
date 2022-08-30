@@ -242,7 +242,9 @@ export default function DogCreate() {
             );
           })}
         </div>
-        <button className={d.filt} type="submit">Crear Perro</button>
+        <button className={d.filt} type="submit">
+          Crear Perro
+        </button>
       </form>
     </div>
   );

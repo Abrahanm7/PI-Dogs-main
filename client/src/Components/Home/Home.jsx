@@ -90,8 +90,8 @@ export default function Home() {
                 onChange={(e) => handleOrdenAlfabetico(e)}
               >
                 <option value="selected" hidden>
-              Orden Alfabetico
-            </option>
+                  Orden Alfabetico
+                </option>
                 <option value="asc">Ascendente a descendente</option>
                 <option value="desc">Descendente a ascendente</option>
               </select>
@@ -119,8 +119,8 @@ export default function Home() {
                 onChange={(e) => handleOrdenPeso(e)}
               >
                 <option value="selected" hidden>
-              Orden por peso
-            </option>
+                  Orden por peso
+                </option>
                 <option value="menorPeso">Menor peso a mayor peso</option>
                 <option value="mayorpeso">Mayor peso a menor peso</option>
               </select>
@@ -129,9 +129,10 @@ export default function Home() {
               <select
                 className={h.botones}
                 onChange={(e) => handleFilterCreated(e)}
-              ><option value="selected" hidden>
-              Origen
-            </option>
+              >
+                <option value="selected" hidden>
+                  Origen
+                </option>
                 <option value="Todos">Todos</option>
                 <option value="api">Existentes</option>
                 <option value="dataBase">Creados</option>
