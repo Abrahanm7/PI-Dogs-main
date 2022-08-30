@@ -89,6 +89,9 @@ export default function Home() {
                 className={h.botones}
                 onChange={(e) => handleOrdenAlfabetico(e)}
               >
+                <option value="selected" hidden>
+              Orden Alfabetico
+            </option>
                 <option value="asc">Ascendente a descendente</option>
                 <option value="desc">Descendente a ascendente</option>
               </select>
@@ -115,6 +118,9 @@ export default function Home() {
                 className={h.botones}
                 onChange={(e) => handleOrdenPeso(e)}
               >
+                <option value="selected" hidden>
+              Orden por peso
+            </option>
                 <option value="menorPeso">Menor peso a mayor peso</option>
                 <option value="mayorpeso">Mayor peso a menor peso</option>
               </select>
@@ -123,7 +129,9 @@ export default function Home() {
               <select
                 className={h.botones}
                 onChange={(e) => handleFilterCreated(e)}
-              >
+              ><option value="selected" hidden>
+              Origen
+            </option>
                 <option value="Todos">Todos</option>
                 <option value="api">Existentes</option>
                 <option value="dataBase">Creados</option>
@@ -138,7 +146,7 @@ export default function Home() {
                 handleClick(e);
               }}
             >
-              Recargar
+              Refrescar
             </button>
           </div>
           <Paginado

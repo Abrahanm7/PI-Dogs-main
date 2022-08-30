@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { postDogs, getTemperaments } from "../../Actions";
 import { useDispatch, useSelector } from "react-redux";
-import d from "./DogCreate.module.css"
+import d from "./DogCreate.module.css";
 
 function validate(input) {
   let errors = {};
@@ -22,8 +22,11 @@ function validate(input) {
     errors.heightMax = "Debe ser mayor que la altura mínima";
   } else if (!/[0-9]/.test(input.life_span)) {
     errors.life_span = "Se requiere una esperanza de vida";
-  }else if (!input.image.length > 0 || !input.image.match(/^(ftp|http|https):\/\/[^ "]+$/)){
-    errors.image = "Solo se puede ingresar una url"
+  } else if (
+    !input.image.length > 0 ||
+    !input.image.match(/^(ftp|http|https):\/\/[^ "]+$/)
+  ) {
+    errors.image = "Solo se puede ingresar una url";
   }
 
   return errors;
@@ -106,7 +109,7 @@ export default function DogCreate() {
         image: "",
       });
       history.push("/home");
-      reload()
+      reload();
     }
   }
   function handleDeleteTemperament(e) {
@@ -126,108 +129,120 @@ export default function DogCreate() {
         <button className={d.filt}>Volver</button>
       </Link>
       <h1>Crea tu perro</h1>
-      <form  onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div className={d.form}>
-        <div className={d.contfilt}>
-          <label>Nombre:</label>
-          <input 
-            className={d.inp}
-            type="text"
-            value={input.name}
-            name="name"
-            onChange={handleChange}
-          />
-          {errors.name && <p className={d.error}>{errors.name}</p>}
-        </div>
-        <div className={d.contfilt}>
-          <label>Peso mínimo:</label>
-          <input
-            className={d.inp}
-            type="number"
-            value={input.weightMin}
-            name="weightMin"
-            onChange={handleChange}
-          />
-          {errors.weightMin && <p className={d.error}>{errors.weightMin}</p>}
-        </div>
-        <div className={d.contfilt}>
-          <label>Peso máximo:</label>
-          <input
-            className={d.inp}
-            type="number"
-            value={input.weightMax}
-            name="weightMax"
-            onChange={handleChange}
+          <div className={d.contfilt}>
+            <label>Nombre:</label>
+            <input
+              className={d.inp}
+              type="text"
+              value={input.name}
+              name="name"
+              onChange={handleChange}
+              placeholder="Nombre"
+            />
+            {errors.name && <p className={d.error}>{errors.name}</p>}
+          </div>
+          <div className={d.contfilt}>
+            <label>Peso mínimo:</label>
+            <input
+              className={d.inp}
+              type="number"
+              value={input.weightMin}
+              name="weightMin"
+              onChange={handleChange}
+              placeholder="Kg"
+            />
+            {errors.weightMin && <p className={d.error}>{errors.weightMin}</p>}
+          </div>
+          <div className={d.contfilt}>
+            <label>Peso máximo:</label>
+            <input
+              className={d.inp}
+              type="number"
+              value={input.weightMax}
+              name="weightMax"
+              onChange={handleChange}
+              placeholder="Kg"
             />
             {errors.weightMax && <p className={d.error}>{errors.weightMax}</p>}
-        </div>
-        <div className={d.contfilt}>
-          <label>Altura mínima:</label>
-          <input
-            className={d.inp}
-            type="number"
-            value={input.heightMin}
-            name="heightMin"
-            onChange={handleChange}
-          />
-          {errors.heightMin && <p className={d.error}>{errors.heightMin}</p>}
-        </div>
-        <div className={d.contfilt}>
-          <label>Altura máxima:</label>
-          <input
-            className={d.inp}
-            type="number"
-            value={input.heightMax}
-            name="heightMax"
-            onChange={handleChange}
-          />
-          {errors.heightMax && <p className={d.error}>{errors.heightMax}</p>}
-        </div >
-        <div className={d.contfilt}>
-          <label>Esperanza de vida:</label>
-          <input
-            className={d.inp}
-            type="number"
-            value={input.life_span}
-            name="life_span"
-            onChange={handleChange}
-          />
-          {errors.life_span && <p className={d.error}>{errors.life_span}</p>}
-        </div>
-        <div className={d.contfilt}>
-          <label>Imagen:</label>
-          <input
-            className={d.inp}
-            type="text"
-            value={input.image}
-            name="image"
-            onChange={handleChange}
-          />
-          {errors.image && <p className={d.error}>{errors.image}</p>}
-        </div>
-        <select className={d.contfilt} onChange={(e) => handleSelect(e)}>
-          <option value="selected" hidden>
-            Temperaments
-          </option>
-          {temperamentos?.map((el) => {
+          </div>
+          <div className={d.contfilt}>
+            <label>Altura mínima:</label>
+            <input
+              className={d.inp}
+              type="number"
+              value={input.heightMin}
+              name="heightMin"
+              onChange={handleChange}
+              placeholder="Cm"
+            />
+            {errors.heightMin && <p className={d.error}>{errors.heightMin}</p>}
+          </div>
+          <div className={d.contfilt}>
+            <label>Altura máxima:</label>
+            <input
+              className={d.inp}
+              type="number"
+              value={input.heightMax}
+              name="heightMax"
+              onChange={handleChange}
+              placeholder="Cm"
+            />
+            {errors.heightMax && <p className={d.error}>{errors.heightMax}</p>}
+          </div>
+          <div className={d.contfilt}>
+            <label>Esperanza de vida:</label>
+            <input
+              className={d.inp}
+              type="number"
+              value={input.life_span}
+              name="life_span"
+              onChange={handleChange}
+              placeholder="Años"
+            />
+            {errors.life_span && <p className={d.error}>{errors.life_span}</p>}
+          </div>
+          <div className={d.contfilt}>
+            <label>Imagen:</label>
+            <input
+              className={d.inp}
+              type="text"
+              value={input.image}
+              name="image"
+              onChange={handleChange}
+              placeholder="URL"
+            />
+            {errors.image && <p className={d.error}>{errors.image}</p>}
+          </div>
+          <select className={d.contfilt} onChange={(e) => handleSelect(e)}>
+            <option value="selected" hidden>
+              Temperaments
+            </option>
+            {temperamentos?.map((el) => {
+              return (
+                <option value={el.name} key={el.id}>
+                  {el.name}
+                </option>
+              );
+            })}
+          </select>
+          {input.temperament.map((el) => {
             return (
-              <option value={el.name} key={el.id}>
-                {el.name}
-              </option>
+              <ul key={el}>
+                <li className={d.lista}>
+                  <button
+                    className={d.filt}
+                    onClick={() => handleDeleteTemperament(el)}
+                  >
+                    {el}
+                  </button>
+                </li>
+              </ul>
             );
           })}
-        </select>
-        {input.temperament.map((el) => {
-          return (
-            <ul key={el}>
-              <li className={d.lista}>
-                <button className={d.filt} onClick={() => handleDeleteTemperament(el)}>{el}</button>
-              </li>
-            </ul>
-          );
-        })}
         </div>
-        <button type="submit">Crear Perro</button>
+        <button className={d.filt} type="submit">Crear Perro</button>
       </form>
     </div>
   );

@@ -20,7 +20,7 @@ export default function Detail(props) {
   return (
     <div className={d.cont}>
       <Link to={"/home"}>
-        <button className={d.filt} >Volver</button>
+        <button className={d.filt}>Volver</button>
       </Link>
       {dogId.length === 0 ? (
         <img
