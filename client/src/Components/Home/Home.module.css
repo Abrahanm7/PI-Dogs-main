@@ -77,3 +77,7 @@
 .botones:hover {
     transform: scale(1.03);
 }
+.cargando{
+    font-size:40px;
+    font-family: 'HK Grotesk Medium';
+}

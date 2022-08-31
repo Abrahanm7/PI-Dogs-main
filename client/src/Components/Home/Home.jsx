@@ -158,6 +158,7 @@ export default function Home() {
             src="https://acegif.com/wp-content/uploads/gif/dog-chasing-tail-41.gif"
             alt="img not found"
             />
+            <p className={h.cargando}>No se encontraron perros</p>
         </div>
         
       ) : (
