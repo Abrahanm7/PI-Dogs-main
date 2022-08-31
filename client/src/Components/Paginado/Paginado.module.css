@@ -15,7 +15,11 @@
     border: #ff862f;
     border-radius: 4px;
     transition: 0.1s;
+    font-size: 15px;
 }
 .num:hover{
-    transform: scale(1.1);
+    transform: scale(1.3);
+}
+.num:focus{
+    background-color: rgb(231, 76, 10);
 }

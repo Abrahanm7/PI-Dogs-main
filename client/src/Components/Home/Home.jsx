@@ -7,6 +7,7 @@ import {
   ordenPeso,
   filterByTemp,
   getTemperaments,
+  reload,
 } from "../../Actions";
 import { Link } from "react-router-dom";
 import Card from "../Cards/Card";
@@ -19,7 +20,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.dogs);
   const temperaments = useSelector((state) => state.temperament);
-  const [orden, setOrden] = useState("");
+  const [orden , setOrden] = useState("");
   const [paginaActual, setPaginaActual] = useState(1);
   const [perrosPorPagina] = useState(8);
   const indiceUltimoPerro = paginaActual * perrosPorPagina;
@@ -34,16 +35,19 @@ export default function Home() {
   function handleClick(e) {
     e.preventDefault();
     dispatch(getDogs());
+    
   }
 
   function handleFilterTemperament(e) {
     e.preventDefault();
     setPaginaActual(1);
     dispatch(filterByTemp(e.target.value));
+    
   }
 
   function handleFilterCreated(e) {
     dispatch(filterCreate(e.target.value));
+    
   }
 
   function handleOrdenAlfabetico(e) {
@@ -63,19 +67,11 @@ export default function Home() {
       dispatch(getDogs());
       dispatch(getTemperaments());
     }
-  }, [dispatch, allDogs]);
+  }, [dispatch]);
 
   return (
     <div className={h.contenedor}>
-      {allDogs.length === 0 ? (
-        <div>
-          <img
-            src="https://acegif.com/wp-content/uploads/gif/dog-chasing-tail-41.gif"
-            alt="img not found"
-          />
-        </div>
-      ) : (
-        <div>
+
           <div className={h.titulo}>
             <img src={logo} alt="" />
             <h1 className={h.title}>huellitas</h1>
@@ -88,7 +84,7 @@ export default function Home() {
               <select
                 className={h.botones}
                 onChange={(e) => handleOrdenAlfabetico(e)}
-              >
+                >
                 <option value="selected" hidden>
                   Orden Alfabetico
                 </option>
@@ -100,7 +96,7 @@ export default function Home() {
               <select
                 className={h.botones}
                 onChange={(e) => handleFilterTemperament(e)}
-              >
+                >
                 <option key={0} value="all">
                   Temperamentos
                 </option>
@@ -117,7 +113,7 @@ export default function Home() {
               <select
                 className={h.botones}
                 onChange={(e) => handleOrdenPeso(e)}
-              >
+                >
                 <option value="selected" hidden>
                   Orden por peso
                 </option>
@@ -129,7 +125,7 @@ export default function Home() {
               <select
                 className={h.botones}
                 onChange={(e) => handleFilterCreated(e)}
-              >
+                >
                 <option value="selected" hidden>
                   Origen
                 </option>
@@ -146,7 +142,7 @@ export default function Home() {
               onClick={(e) => {
                 handleClick(e);
               }}
-            >
+              >
               Refrescar
             </button>
           </div>
@@ -154,29 +150,39 @@ export default function Home() {
             perrosPorPagina={perrosPorPagina}
             allDogs={allDogs.length}
             paginado={paginado}
-          />
-          <div className={h.cartas}>
+            />
+    <div >
+      {allDogs.length === 0 ? (
+        <div>
+          <img
+            src="https://acegif.com/wp-content/uploads/gif/dog-chasing-tail-41.gif"
+            alt="img not found"
+            />
+        </div>
+        
+      ) : (
+        
+        <div className={h.cartas}>
             {perrosActuales &&
               perrosActuales.map((el) => {
                 return (
                   <div className={h.carta}>
-                    <Link className={h.carta} to={"/home/" + el.id}>
                       <Card
                         className={h.carta}
-                        key={el.id}
+                        key={el.name}
+                        id={el.id}
                         name={el.name}
                         image={el.image}
                         temperament={el.temperament}
                         weightMin={el.weightMin}
                         weightMax={el.weightMax}
                       />
-                    </Link>
                   </div>
                 );
               })}
           </div>
-        </div>
       )}
     </div>
-  );
+    </div>
+    );
 }

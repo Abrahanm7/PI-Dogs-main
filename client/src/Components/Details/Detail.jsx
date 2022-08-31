@@ -9,6 +9,7 @@ export default function Detail(props) {
   const dispatch = useDispatch();
   console.log(props);
   const id = props.location.pathname.split("/")[2];
+  const history = useHistory()
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -19,15 +20,12 @@ export default function Detail(props) {
 
   return (
     <div className={d.cont}>
-      <Link to={"/home"}>
-        <button className={d.filt}>Volver</button>
-      </Link>
-      {dogId.length === 0 ? (
+      {dogId.length === 0 ? 
         <img
           src="https://acegif.com/wp-content/uploads/gif/dog-chasing-tail-41.gif"
           alt="img not found"
         />
-      ) : (
+       : (
         <div className={d.contenedor}>
           <img className={d.image} src={dogId[0].image} alt="Img not found" />
           <h3>{dogId[0].name}</h3>
@@ -38,14 +36,17 @@ export default function Detail(props) {
             Altura: {dogId[0].heightMin} - {dogId[0].heightMax} Cm
           </p>
           <p>
-            Temperamento:
+            Temperamento:{" "}
             {dogId[0].createdInDb
-              ? dogId[0].temperament.map((e) => e.name + " ")
+              ? dogId[0].temperament.map((e) => e.name).join(", ")
               : dogId[0].temperament}
           </p>
           <p>Esperanza de vida: {dogId[0].life_span}</p>
         </div>
       )}
+      <Link to={"/home"}>
+        <button className={d.filt}>Volver</button>
+      </Link>
     </div>
   );
 }

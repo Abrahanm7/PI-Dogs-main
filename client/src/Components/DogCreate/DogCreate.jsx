@@ -4,39 +4,83 @@ import { postDogs, getTemperaments } from "../../Actions";
 import { useDispatch, useSelector } from "react-redux";
 import d from "./DogCreate.module.css";
 
-function validate(input) {
-  let errors = {};
-  if (!/^[A-Z]+$/i.test(input.name)) {
-    errors.name = "Sólo se puede insertar caracteres de la a-z";
-  } else if (!/^[0-9]+$/.test(input.weightMin)) {
-    errors.weightMin = "Solo se puede ingresar numeros";
-  } else if (!/[0-9]/.test(input.weightMax)) {
-    errors.weightMax = "Solo se puede ingresar numeros";
-  } else if (input.weightMin > input.weightMax) {
-    errors.weightMax = "Debe ser mayor que el peso mínimo";
-  } else if (!/[0-9]/.test(input.heightMin)) {
-    errors.heightMin = "Se requiere una altura mínima";
-  } else if (!/[0-9]/.test(input.heightMax)) {
-    errors.heightMax = "Se requiere una altura máxima";
-  } else if (input.heightMin > input.heightMax) {
-    errors.heightMax = "Debe ser mayor que la altura mínima";
-  } else if (!/[0-9]/.test(input.life_span)) {
-    errors.life_span = "Se requiere una esperanza de vida";
-  } else if (
-    !input.image.length > 0 ||
-    !input.image.match(/^(ftp|http|https):\/\/[^ "]+$/)
-  ) {
-    errors.image = "Solo se puede ingresar una url";
-  }
-
-  return errors;
-}
 
 export default function DogCreate() {
   const dispatch = useDispatch();
   const temperamentos = useSelector((state) => state.temperament);
   const history = useHistory();
   const [errors, setErrors] = useState({});
+
+  const validate = function (input) {
+    const errors = {};
+    if (!input.name) {
+      errors.name = "Nombre debe ser ingresado";
+    } else if (!/^[a-zA-Z\s]*$/.test(input.name)) {
+      errors.name = "Solo puede ingresar letras y espacios";
+    }
+    if (!input.heightMin) {
+      errors.heightMin = "Se debe ingresar la altura minima";
+    }
+    if (input.heightMin.length > 4 ) {
+      errors.heightMin = "Altura maxima de 9999cm";
+    }
+    if (!input.heightMax) {
+      errors.heightMax = "Se debe ingresar la altura maxima";
+    }
+    if (input.heightMax.length > 4 ) {
+      errors.heightMax = "Altura maxima de 9999cm";
+    }
+    if (!input.weightMin) {
+      errors.weightMin = "Se debe ingresar el peso minimo";
+    }
+    if (!input.weightMax) {
+      errors.weightMax = "Se debe ingresar el peso maximo";
+    }
+    if (input.weightMax.length > 4) {
+      errors.weightMax = "Peso maximo 9999kg";
+    }
+    if (input.weightMin.length > 4) {
+      errors.weightMin = "Peso maximo 9999kg";
+    }
+    if (input.heightMin < 0) {
+      errors.heightMin = "La altura minima debe ser mayor que 0";
+    }
+    if (parseInt(input.heightMin) > parseInt(input.heightMax)) {
+      errors.heightMax = "Altura minima deberia ser menor que la altura maxima";
+    }
+  
+    if (input.heightMax < 0) {
+      errors.heightMax = "La altura maxima debe ser mayor que 0";
+    }
+  
+    if (input.weightMin < 0) {
+      errors.weightMin = "El peso minimo debe ser mayor que 0";
+    }
+    if (parseInt(input.weightMin) > parseInt(input.weightMax)) {
+      errors.weightMax = "Peso maximo deberia ser mayor que el peso minimo";
+    }
+    if (input.weightMax < 0) {
+      errors.weightMax = "Peso maximo debe ser mayor que 0";
+    }
+    if (!/[0-9]/.test(input.weightMin)) {
+      errors.weightMin = "Solo se puede ingresar numeros";
+    } 
+    if (!/[0-9]/.test(input.weightMax)) {
+      errors.weightMax = "Solo se puede ingresar numeros";
+    }
+    if (input.life_span < 0) {
+      errors.lifes_pan = "Debe ser mayor que 0";
+    }
+    if (!/[0-9]/.test(input.life_span)) {
+      errors.lifes_pan = "Solo se puede ingresar numeros";
+    } else if (
+      !input.image.length > 0 ||
+      !input.image.match(/^(ftp|http|https):\/\/[^ "]+$/)
+    ) {
+      errors.image = "Solo se puede ingresar una url";
+    }
+    return errors;
+  };
 
   const [input, setInput] = useState({
     name: "",
@@ -147,7 +191,7 @@ export default function DogCreate() {
             <label>Peso mínimo:</label>
             <input
               className={d.inp}
-              type="number"
+              type="text"
               value={input.weightMin}
               name="weightMin"
               onChange={handleChange}
@@ -159,7 +203,7 @@ export default function DogCreate() {
             <label>Peso máximo:</label>
             <input
               className={d.inp}
-              type="number"
+              type="text"
               value={input.weightMax}
               name="weightMax"
               onChange={handleChange}
@@ -195,7 +239,7 @@ export default function DogCreate() {
             <label>Esperanza de vida:</label>
             <input
               className={d.inp}
-              type="number"
+              type="text"
               value={input.life_span}
               name="life_span"
               onChange={handleChange}

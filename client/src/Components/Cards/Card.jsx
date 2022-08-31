@@ -9,11 +9,12 @@ export default function Card({
   temperament,
   weightMin,
   weightMax,
-}) {
+})
+{
   return (
     <div className={s.contenedor}>
       <div className={s.cardbody}>
-        <img className={s.image} src={image} alt="img not found" />
+      <Link to={"/home/" + id}><img className={s.image} src={image} alt="img not found" /></Link>
         <h3 className={s.cardtitle}>{name}</h3>
         <div>
           <p className={s.heightMin}>
@@ -32,6 +33,9 @@ export default function Card({
             })(temperament)}
           </p>
         </div>
+        <div>
+        
+      </div>        
       </div>
     </div>
   );

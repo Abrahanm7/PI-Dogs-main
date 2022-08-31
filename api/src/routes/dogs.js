@@ -9,18 +9,16 @@ const router = Router();
 const getApiInfo = async () => {
     const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds")
     const apiInfo = await apiUrl.data.map(el => {
-        const heightsp = el.height.metric.split(" - ");
-        const weightsp = el.weight.metric.split(" - ");
         const image = el.image.url;
         
 
         return {
             id: el.id,
             name: el.name,
-            heightMin: heightsp[0],
-            heightMax: heightsp[1],
-            weightMin: weightsp[0],
-            weightMax: weightsp[1],
+            heightMax: parseInt(el.height.metric.slice(4).trim()),
+            heightMin: parseInt(el.height.metric.slice(0,2).trim()),
+            weightMax: parseInt(el.weight.metric.slice(4).trim()),
+            weightMin: parseInt(el.weight.metric.slice(0,2).trim()),
             temperament: el.temperament,
             image: image,
             createdInDb: false,
@@ -53,13 +51,14 @@ const getAllDogs = async () => {
 const getAllTemp = async () => {
     const temperamentsApi = await axios.get("https://api.thedogapi.com/v1/breeds")
     const temperaments = temperamentsApi.data.map((el) => el.temperament)
-    
-    const temp = temperaments.toString().split(",")
-    temp.forEach(el => {el && 
-        Temperament.findOrCreate({
-            where: {name: el.trim()}
+    const arrTemp = temperaments.map((el) => (el ? el.split(", ") : null)).flat();
+    const temperament = [...new Set(arrTemp)];
+
+    temperament.filter(el => el !== null).forEach(
+        async (el) => await Temperament.findOrCreate({
+            where: {name: el}
         })
-    })
+    );
     const allTemperaments = await Temperament.findAll();
     return allTemperaments;
 }
@@ -154,5 +153,4 @@ router.post('/dogs', async (req , res) => {
         
     });
     
-
 module.exports = router;

@@ -16,14 +16,14 @@ function rootReducer(state = initialState, action) {
     case "ORDEN_PESO":
       const ordenPeso =
         action.payload === "menorPeso"
-          ? state.dogs.sort(function (a, b) {
-              if (Number(a.weightMin) > Number(b.weightMin)) return 1;
-              if (Number(a.weightMin) < Number(b.weightMin)) return -1;
+          ? state.dogs.sort((a, b) => {
+              if ((a.weightMin) < (b.weightMin)) return -1;
+              if ((a.weightMin) > (b.weightMin)) return 1;
               return 0;
             })
-          : state.dogs.sort(function (a, b) {
-              if (Number(a.weightMin) > Number(b.weightMin)) return -1;
-              if (Number(a.weightMin) < Number(b.weightMin)) return 1;
+          : state.dogs.sort((a, b) => {
+              if ((a.weightMin) > (b.weightMin)) return -1;
+              if ((a.weightMin) < (b.weightMin)) return 1;
               return 0;
             });
       return {
@@ -34,19 +34,19 @@ function rootReducer(state = initialState, action) {
       let ordenAlf =
         action.payload === "asc"
           ? state.dogs.sort(function (a, b) {
-              if (a.name > b.name) {
+              if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return 1;
               }
-              if (a.name < b.name) {
+              if (a.name.toLowerCase() < b.name.toLowerCase()) {
                 return -1;
               }
               return 0;
             })
           : state.dogs.sort(function (a, b) {
-              if (a.name > b.name) {
+              if (a.name.toLowerCase() > b.name.toLowerCase()) {
                 return -1;
               }
-              if (a.name < b.name) {
+              if (a.name.toLowerCase() < b.name.toLowerCase()) {
                 return 1;
               }
               return 0;
@@ -108,6 +108,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         details: action.payload,
       };
+      
     default:
       return state;
   }

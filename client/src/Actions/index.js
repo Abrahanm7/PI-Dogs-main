@@ -69,6 +69,8 @@ export function searchByName(name) {
   };
 }
 
+
+
 export function getDetail(id) {
   return async function (dispatch) {
     try {
@@ -78,7 +80,7 @@ export function getDetail(id) {
         payload: json.data,
       });
     } catch (error) {
-      console.log(error);
+      alert("No hay perros creados");
     }
   };
 }
@@ -89,3 +91,5 @@ export function reload(payload) {
     payload: payload,
   };
 }
+
+
